@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ligue de Babyfoot</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>⚽ Ligue de Babyfoot</h1>
+  <p>Inscription par QR code — Cotisation : 5€</p>
+
+  <section>
+    <h2>➕ Ajouter un joueur</h2>
+    <input id="newPlayerPrenom" placeholder="Prénom" />
+    <input id="newPlayerName" placeholder="Pseudo (ou Invité)" />
+    <button onclick="addPlayer()">Ajouter</button>
+  </section>
+
+  <section>
+    <h2>🎮 Nouveau match</h2>
+    <label>Mode :
+      <select id="mode" onchange="renderMatchForm()">
+        <option value="1v1">1 vs 1</option>
+        <option value="2v2">2 vs 2</option>
+      </select>
+    </label>
+    <div id="matchForm"></div>
+    <button onclick="submitMatch()">Enregistrer le match</button>
+    <button onclick="clearMatchForm()">Réinitialiser</button>
+    <p class="hint">⚠️ Les joueurs doivent avoir payé leur cotisation (Invité autorisé).</p>
+  </section>
+
+  <section>
+    <h2>📊 Classement</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Pseudo</th><th>Prénom</th><th>Elo</th>
+          <th>V</th><th>D</th><th>Ratio V/D</th>
+          <th>Buts</th><th>Passes (déf.)</th><th>Arrêts (déf.)</th><th>Tirs ratés (att.)</th>
+          <th>Efficacité</th><th>Badges (meilleur grade)</th>
+        </tr>
+      </thead>
+      <tbody id="rankingBody"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>🏅 Hall of Fame (annuel)</h2>
+    <p class="hint">Total des grades obtenus cette année (💎 = diamant).</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Pseudo</th>
+          <th>HT Déf 💎</th>
+          <th>Mur 💎</th>
+          <th>Précision 💎</th>
+          <th>Passeur 💎</th>
+        </tr>
+      </thead>
+      <tbody id="hofBody"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>📜 Historique des matchs</h2>
+    <table>
+      <thead>
+        <tr><th>Date</th><th>Mode</th><th>Équipe A</th><th>Score</th><th>Équipe B</th></tr>
+      </thead>
+      <tbody id="historyBody"></tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>🔑 Zone admin</h2>
+    <button onclick="toggleAdmin()">Connexion admin</button>
+    <div id="adminTools" style="display:none;">
+      <h3>Adhésions & Saison</h3>
+      <table>
+        <thead>
+          <tr><th>Pseudo</th><th>Prénom</th><th>Cotisation</th><th>Matchs</th><th>Éligible badges</th><th>Action</th></tr>
+        </thead>
+        <tbody id="adminBody"></tbody>
+      </table>
+      <button onclick="newSeason()">Nouvelle saison</button>
+      <h3>Bonus Elo</h3>
+      <input id="bonusName" placeholder="Nom joueur" />
+      <input id="bonusAmount" type="number" placeholder="Points Elo" />
+      <button onclick="applyBonus()">Appliquer</button>
+    </div>
+  </section>
+
+  <!-- Modal Profil -->
+  <div id="playerModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="playerProfile"></div>
+    </div>
+  </div>
+
+  <!-- version forcée pour vider le cache -->
+  <script src="script.js?v=11"></script>
+</body>
+</html>
