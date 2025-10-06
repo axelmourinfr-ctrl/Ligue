@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ligue de Baby-Foot</title>
+  <link rel="stylesheet" href="style.css?v=14">
+  <style>
+    /* Styles de secours (au cas où style.css n’est pas chargé) */
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; color: #1f2937; background:#f7f7fb; }
+    header { background:#111827; color:#fff; padding:16px; }
+    header h1 { margin:0; font-size:1.25rem; }
+    header .sub { font-size:.9rem; opacity:.9; margin-top:6px; }
+    main { max-width:1100px; margin:0 auto; padding:16px; }
+    section { background:#fff; border-radius:10px; border:1px solid #e5e7eb; padding:14px; margin:12px 0; }
+    h2 { margin:0 0 10px; font-size:1.1rem; }
+    .grid { display:grid; gap:12px; }
+    .grid.two { grid-template-columns: 1fr; }
+    @media(min-width:900px){ .grid.two { grid-template-columns: 1fr 1fr; } }
+
+    .row { display:flex; gap:10px; align-items:center; margin:6px 0; }
+    .row.wrap { flex-wrap:wrap; }
+    label { font-size:.95rem; min-width:120px; }
+    input, select { flex:1; padding:8px 10px; border:1px solid #d1d5db; border-radius:8px; font-size:1rem; background:#fff; }
+    input[type="number"] { max-width:130px; }
+
+    .btn { background:#2563eb; color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:600; }
+    .btn.secondary { background:#111827; }
+    .btn.gray { background:#6b7280; }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+
+    table { width:100%; border-collapse:collapse; }
+    th, td { text-align:left; border-bottom:1px solid #e5e7eb; padding:10px 8px; vertical-align:middle; }
+    th { background:#f3f4f6; font-weight:700; }
+    .hint { color:#6b7280; font-size:.9rem; margin:8px 0 0; }
+    .badge { display:inline-block; font-size:.85rem; background:#eef2ff; color:#1e40af; padding:2px 8px; border-radius:999px; }
+    .score-box { display:grid; grid-template-columns: 1fr 120px; gap:10px; align-items:center; }
+    .player-form { border:1px dashed #e5e7eb; border-radius:8px; padding:10px; margin:8px 0; background:#fafafa; }
+    .pseudo-link { color:#2563eb; cursor:pointer; text-decoration:underline; }
+    .grade { font-size:1.05rem; padding-left:2px; }
+
+    #adminTools { display:none; }
+    .actions { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .center { text-align:center; }
+    .muted { color:#6b7280; }
+
+    /* Modal profil joueur */
+    .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:50; }
+    .modal .panel { background:#fff; border-radius:12px; max-width:540px; margin:60px auto; padding:16px; box-shadow:0 10px 24px rgba(0,0,0,.15); }
+    .modal .close { float:right; font-size:1.2rem; cursor:pointer; color:#6b7280; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Ligue de Baby-Foot du Café</h1>
+    <div class="sub" id="seasonLabel">Saison en cours</div>
+  </header>
+
+  <main>
+
+    <!-- AJOUT JOUEUR -->
+    <section>
+      <h2>Ajouter un joueur</h2>
+      <div class="row wrap">
+        <label>Prénom</label>
+        <input id="newPlayerPrenom" type="text" placeholder="Ex: Julien" />
+      </div>
+      <div class="row wrap">
+        <label>Pseudo (obligatoire)</label>
+        <input id="newPlayerName" type="text" placeholder="Ex: Juju_10 (éviter ‘Invité’)" />
+      </div>
+      <div class="actions">
+        <button class="btn" onclick="addPlayer()">Ajouter</button>
+        <span class="hint">Les invités peuvent jouer mais ne gagnent ni Elo ni badges.</span>
+      </div>
+    </section>
+
+    <div class="grid two">
+
+      <!-- ENCODAGE MATCH -->
+      <section>
+        <h2>Enregistrer un match</h2>
+        <div class="row wrap">
+          <label>Format</label>
+          <select id="mode" onchange="renderMatchForm()">
+            <option value="1v1">1 vs 1</option>
+            <option value="2v2">2 vs 2</option>
+          </select>
+        </div>
+
+        <div id="matchForm"></div>
+
+        <div class="actions">
+          <button class="btn" onclick="submitMatch()">Enregistrer le match</button>
+          <button class="btn gray" onclick="clearMatchForm()">Effacer le formulaire</button>
+        </div>
+        <p class="hint">Rappels : Les stats sont optionnelles. Anti-doublon actif (10 min). Les badges comptent seulement si tous les joueurs ont ≥ 5 matchs et si l’adversaire est de niveau similaire (±50 Elo) ou supérieur.</p>
+      </section>
+
+      <!-- ADMIN -->
+      <section>
+        <h2>Administration</h2>
+        <div class="actions">
+          <button class="btn secondary" onclick="toggleAdmin()">Connexion admin / Outils</button>
+        </div>
+
+        <div id="adminTools">
+          <h3>État des cotisations</h3>
+          <table>
+            <thead>
+              <tr><th>Joueur</th><th>Prénom</th><th>Cotisation</th><th>Matchs</th><th>Action</th></tr>
+            </thead>
+            <tbody id="adminBody"></tbody>
+          </table>
+
+          <h3 style="margin-top:16px;">Ajustement Elo (bonus / malus)</h3>
+          <div class="row wrap">
+            <label>Nom du joueur</label>
+            <input id="bonusName" type="text" placeholder="Ex: Axel" />
+          </div>
+          <div class="row wrap">
+            <label>Points Elo</label>
+            <input id="bonusAmount" type="number" value="0" />
+          </div>
+          <div class="actions">
+            <button class="btn" onclick="applyBonus()">Appliquer</button>
+          </div>
+
+          <h3 style="margin-top:16px;">Nouvelle saison</h3>
+          <div class="actions">
+            <button class="btn gray" onclick="newSeason()">Réinitialiser stats & badges (Elo conservé)</button>
+          </div>
+          <p class="hint">Réservé au patron (PIN 2025).</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- CLASSEMENT -->
+    <section>
+      <h2>Classement</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Pseudo</th><th>Prénom</th><th>Elo</th>
+            <th>V</th><th>D</th><th>V/D</th>
+            <th>Buts</th><th>Passes (déf.)</th><th>Arrêts (déf.)</th><th>Tirs ratés (att.)</th>
+            <th>Efficacité</th><th>Badges</th>
+          </tr>
+        </thead>
+        <tbody id="rankingBody"></tbody>
+      </table>
+    </section>
+
+    <!-- HALL OF FAME -->
+    <section>
+      <h2>Hall of Fame (Annuel – Diamants)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>HT Déf 💎</th>
+            <th>Mur 💎</th>
+            <th>Précis 💎</th>
+            <th>Passeur 💎</th>
+          </tr>
+        </thead>
+        <tbody id="hofBody"></tbody>
+      </table>
+      <p class="hint">Les diamants (💎) sont enregistrés pour l’année en cours.</p>
+    </section>
+
+    <!-- HISTORIQUE -->
+    <section>
+      <h2>Historique des matchs</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th><th>Format</th><th>Équipe A</th><th>Score</th><th>Équipe B</th>
+          </tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </section>
+
+    <!-- MODAL PROFIL JOUEUR -->
+    <div id="playerModal" class="modal" onclick="if(event.target===this) closeModal()">
+      <div class="panel">
+        <span class="close" onclick="closeModal()">✕</span>
+        <div id="playerProfile">Chargement…</div>
+      </div>
+    </div>
+
+    <p class="center muted" style="margin:24px 0 8px;">⚽ Amusez-vous, jouez fair-play, et faites vivre l’ambiance du café !</p>
+
+  </main>
+
+  <!-- Script principal (v14) -->
+  <script src="script.js?v=14"></script>
+</body>
+</html>
