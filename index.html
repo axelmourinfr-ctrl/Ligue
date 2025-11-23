@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ligue de Kicker du Télégraphe</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <header>
+    <h1>⚽ Ligue de Kicker du Télégraphe</h1>
+    <p class="address">📍 Café Le Télégraphe – Rue de la Station 15, 7800 Ath</p>
+  </header>
+
+  <main>
+
+    <!-- Ajouter joueur -->
+    <section class="card">
+      <h2>Ajouter un joueur</h2>
+      <div class="row">
+        <input id="newPlayerName" placeholder="Nom / pseudo du joueur" />
+        <button class="btn" onclick="addPlayer()">Ajouter</button>
+      </div>
+      <p class="hint">Elo initial : 1000</p>
+    </section>
+
+    <!-- Match form -->
+    <section class="card">
+      <h2>Enregistrer un match</h2>
+
+      <div class="row">
+        <label for="mode">Mode</label>
+        <select id="mode" onchange="renderMatchForm()">
+          <option value="1v1">1 vs 1</option>
+          <option value="2v2">2 vs 2</option>
+        </select>
+      </div>
+
+      <div id="matchForm"></div>
+
+      <div class="row">
+        <button class="btn primary" onclick="submitMatch()">Valider le match</button>
+        <button class="btn ghost" onclick="clearMatchForm()">Effacer</button>
+      </div>
+      <p class="hint">
+        1 vs 1 : Elo et score.<br/>
+        2 vs 2 : possibilité d'encoder les stats (buts, passes, arrêts, tirs ratés).
+      </p>
+    </section>
+
+    <!-- ADMIN (caché sans code) -->
+    <section class="card adminOnly">
+      <h2>Gestion de la ligue (Admin)</h2>
+
+      <div class="row wrap">
+        <button class="btn warning" onclick="newSeason()">Nouvelle saison (reset stats & badges)</button>
+      </div>
+
+      <div class="divider"></div>
+
+      <h3>Attribuer un bonus Elo</h3>
+      <div class="row wrap">
+        <input id="bonusName" placeholder="Nom du joueur" />
+        <input id="bonusAmount" type="number" step="1" placeholder="Points Elo (+/-)" />
+        <button class="btn" onclick="applyBonus()">Appliquer</button>
+      </div>
+      <p class="hint">Exemples : vainqueur tournoi +50, meilleur buteur +20…</p>
+
+      <div class="divider"></div>
+
+      <h3>10 derniers matchs</h3>
+      <div id="historyAdmin" class="history"></div>
+    </section>
+
+    <!-- Classement -->
+    <section class="card">
+      <h2>Classement individuel</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Joueur</th>
+              <th>Elo</th>
+              <th>V</th>
+              <th>D</th>
+              <th>Buts Att.</th>
+              <th>Passes Déf.</th>
+              <th>Arrêts Déf.</th>
+              <th>Tirs ratés Att.</th>
+            </tr>
+          </thead>
+          <tbody id="rankingBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Badges -->
+    <section class="card">
+      <h2>Badges</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Joueur</th>
+              <th>Vainqueur écrasant</th>
+              <th>Mur de fer</th>
+              <th>Hat-trick Déf.</th>
+              <th>Précision chir.</th>
+              <th>Serial passeur (Déf.)</th>
+              <th>Progrès continu</th>
+            </tr>
+          </thead>
+          <tbody id="badgesBody"></tbody>
+        </table>
+      </div>
+      <p class="hint">
+        Niveaux : 🪵 Bois • 🥉 Bronze • 🥈 Argent • 🥇 Or • 💎 Diamant
+      </p>
+    </section>
+
+    <!-- Hall of Fame -->
+    <section class="card">
+      <h2>Hall of Fame</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Catégorie</th>
+              <th>Joueur(s)</th>
+              <th>Diamant(s)</th>
+            </tr>
+          </thead>
+          <tbody id="hofBody"></tbody>
+        </table>
+      </div>
+      <p class="hint">
+        Affiche le(s) joueur(s) ayant atteint le niveau 💎 dans chaque catégorie.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Ligue de Kicker du Télégraphe – Application partagée entre tous les joueurs</p>
+    <button class="btn admin-btn" onclick="toggleAdmin()">Mode admin</button>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
