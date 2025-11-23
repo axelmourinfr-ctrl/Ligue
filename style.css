@@ -1,0 +1,141 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f5fa;
+  color: #222;
+}
+
+header {
+  background: #004aad;
+  color: #fff;
+  text-align: center;
+  padding: 16px 10px;
+}
+
+header h1 {
+  margin: 0;
+}
+
+.address {
+  margin: 4px 0 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+main {
+  padding: 12px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
+}
+
+input,
+select {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+label {
+  font-size: 14px;
+  min-width: 90px;
+}
+
+.btn {
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: none;
+  background: #ddd;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn.primary {
+  background: #1a8cff;
+  color: #fff;
+}
+
+.btn.warning {
+  background: #ff5959;
+  color: #fff;
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #999;
+}
+
+.btn.admin-btn {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.hint {
+  font-size: 12px;
+  color: #555;
+}
+
+.divider {
+  height: 1px;
+  background: #e0e0e0;
+  margin: 10px 0;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+.history {
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+footer {
+  padding: 10px;
+  text-align: center;
+  font-size: 13px;
+  background: #f0f0f0;
+}
+
+/* Admin caché par défaut */
+.adminOnly {
+  display: none;
+}
