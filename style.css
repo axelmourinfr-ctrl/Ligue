@@ -1,0 +1,385 @@
+/* ===== Thème rock sombre pour Ligue du Télégraphe ===== */
+
+:root {
+  --bg-body: #050607;
+  --bg-card: #14161b;
+  --bg-card-soft: #101219;
+  --border-red: #b51f2c;
+  --accent-red: #e53935;
+  --text-main: #f5e9d6;
+  --text-muted: #b0a79a;
+  --text-soft: #89827a;
+  --table-line: #272932;
+  --btn-dark: #1f222b;
+  --shadow-soft: 0 12px 30px rgba(0, 0, 0, 0.7);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, sans-serif;
+  background: radial-gradient(circle at top, #1a1b20 0, #050607 55%, #020203 100%);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===== Layout ===== */
+
+header {
+  border-bottom: 1px solid #2a2d35;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(to right, #14161b, #101217);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.header-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.address {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.top-nav a {
+  color: var(--accent-red);
+  text-decoration: none;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: 1px solid var(--border-red);
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+}
+
+.top-nav a:hover {
+  background: rgba(229, 57, 53, 0.15);
+}
+
+/* Main layout */
+
+main {
+  max-width: 960px;
+  width: 100%;
+  margin: 1rem auto 2.5rem;
+  padding: 0 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Cards */
+
+.card {
+  background: radial-gradient(circle at top left, #1f222b 0, var(--bg-card) 40%, #07080b 120%);
+  border-radius: 14px;
+  border: 1px solid #262832;
+  box-shadow: var(--shadow-soft);
+  padding: 1rem 1rem 1.1rem;
+}
+
+.card h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-bottom: 1px solid #272932;
+  padding-bottom: 0.4rem;
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  margin: 0.6rem 0 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.card h4 {
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0.2rem;
+  color: var(--text-muted);
+}
+
+/* Rows */
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0;
+}
+
+.row.wrap {
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+/* Inputs & selects */
+
+input,
+select {
+  background: var(--bg-card-soft);
+  border: 1px solid #30323b;
+  border-radius: 999px;
+  padding: 0.4rem 0.8rem;
+  color: var(--text-main);
+  font-size: 0.9rem;
+  min-width: 0;
+}
+
+input::placeholder {
+  color: #666973;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-red);
+  box-shadow: 0 0 0 1px rgba(229, 57, 53, 0.4);
+}
+
+/* Buttons */
+
+.btn {
+  border-radius: 999px;
+  border: 1px solid #3a3d47;
+  background: var(--btn-dark);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  white-space: nowrap;
+}
+
+.btn.big {
+  padding: 0.55rem 1.4rem;
+}
+
+.btn.primary {
+  background: var(--accent-red);
+  border-color: var(--accent-red);
+  color: #fffaf0;
+}
+
+.btn.primary:hover {
+  filter: brightness(1.05);
+}
+
+.btn.ghost {
+  background: transparent;
+  border-color: #3d404a;
+  color: var(--text-muted);
+}
+
+.btn.ghost:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.btn.warning {
+  background: transparent;
+  border-color: #ff9800;
+  color: #ffb74d;
+}
+
+.btn.warning:hover {
+  background: rgba(255, 152, 0, 0.1);
+}
+
+.btn.admin-btn {
+  margin-top: 0.4rem;
+}
+
+/* Mode switch */
+
+.mode-switch {
+  justify-content: flex-start;
+}
+
+.mode-btn {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  border: 1px solid #3b3c46;
+  background: #161922;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  padding: 0.35rem 0.8rem;
+}
+
+.mode-btn.active {
+  border-color: var(--accent-red);
+  background: rgba(229, 57, 53, 0.15);
+  color: var(--text-main);
+}
+
+.mode-hidden {
+  display: none;
+}
+
+/* Text helpers */
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  margin: 0.3rem 0 0;
+}
+
+.divider {
+  margin: 0.7rem 0;
+  border-top: 1px solid #272932;
+}
+
+/* Tables */
+
+.table-wrap {
+  overflow-x: auto;
+  margin-top: 0.4rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+th,
+td {
+  padding: 0.35rem 0.4rem;
+  text-align: left;
+}
+
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  border-bottom: 1px solid #30323b;
+}
+
+tbody tr:nth-child(odd) {
+  background: rgba(255, 255, 255, 0.01);
+}
+
+tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+tbody tr:first-child td {
+  font-weight: 600;
+  color: #ffd54f;
+}
+
+tbody td {
+  border-bottom: 1px solid #1f2129;
+}
+
+/* History admin */
+
+.history {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Footer */
+
+footer {
+  margin-top: auto;
+  padding: 0.8rem 1rem 1.2rem;
+  border-top: 1px solid #2a2d35;
+  background: linear-gradient(to right, #11121a, #101017);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.footer-link {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--accent-red);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.75rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* Admin visibility */
+
+.adminOnly {
+  display: none;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+  .header-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  main {
+    padding: 0 0.6rem 1rem;
+  }
+
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .row.wrap {
+    flex-direction: column;
+  }
+
+  input,
+  select,
+  .btn {
+    width: 100%;
+  }
+
+  .mode-switch {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .mode-btn {
+    width: auto;
+  }
+}
