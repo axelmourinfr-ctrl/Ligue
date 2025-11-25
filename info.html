@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Infos & Règlement – Ligue de Kicker du Télégraphe</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Légers ajustements visuels spécifiques à la page infos */
+    .info-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    .badge-list li {
+      margin-bottom: 4px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 14px;
+      border-radius: 6px;
+      background: #333;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+    }
+    .back-link:hover {
+      opacity: 0.9;
+    }
+    .error-info {
+      color: #c00;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>📜 Infos & Règlement</h1>
+    <p class="address">Ligue de Kicker du Télégraphe – Café Le Télégraphe, Rue de la Station 15, 7800 Ath</p>
+  </header>
+
+  <main class="info-container">
+
+    <section class="card">
+      <h2>Règlement de la ligue</h2>
+      <ol>
+        <li><strong>Saison :</strong> une saison dure 1 mois. À chaque nouvelle saison, les statistiques sont remises à zéro, mais l’Elo et le Hall of Fame restent.</li>
+        <li><strong>Inscription :</strong> cotisation de 5€ par saison. Seuls les joueurs cotisants peuvent encoder des matchs officiels qui comptent pour le classement.</li>
+        <li><strong>Encodage des matchs :</strong> un match est valide dès que le score est encodé correctement dans l’application. Les statistiques détaillées (buts, passes, arrêts, tirs ratés) sont facultatives mais recommandées.</li>
+        <li><strong>Modes de jeu :</strong> la ligue prend en charge les matchs 1 vs 1 et 2 vs 2. En 2 vs 2, l’attaquant et le défenseur peuvent encoder leurs stats respectives.</li>
+        <li><strong>Badges & Hall of Fame :</strong> les badges sont obtenus en remplissant certaines conditions en match. Le niveau atteint (Bois → Diamant) est enregistré, et le niveau Diamant alimente le Hall of Fame.</li>
+        <li><strong>Fair-play :</strong> la ligue repose sur la confiance. Toute triche, encodage fantôme ou tricherie manifeste peut entraîner l’annulation de matchs ou l’exclusion de la ligue.</li>
+      </ol>
+    </section>
+
+    <section class="card">
+      <h2>Badges disponibles</h2>
+      <p>Niveaux : 🪵 Bois • 🥉 Bronze • 🥈 Argent • 🥇 Or • 💎 Diamant</p>
+      <ul class="badge-list">
+        <li><strong>Vainqueur écrasant :</strong> gagner un match avec un score très large (par exemple 11–5, 11–4, 11–3, 11–2 ou 11–1 / 11–0 pour Diamant).</li>
+        <li><strong>Mur de fer :</strong> gros nombre d’arrêts en défense, très peu de buts encaissés sur un match.</li>
+        <li><strong>Hat-trick Défenseur :</strong> le défenseur marque plusieurs buts (par exemple 3) dans un même match – récompense le défenseur buteur.</li>
+        <li><strong>Précision chirurgicale :</strong> attaquant qui gagne un match avec très peu de tirs ratés (ex. Diamant si la victoire est obtenue avec 2 tirs ratés ou moins).</li>
+        <li><strong>Serial passeur (défenseur) :</strong> défenseur qui distribue un nombre élevé de passes décisives.</li>
+        <li><strong>Progrès continu :</strong> joueur qui joue régulièrement et continue à enchaîner les matchs, montrant une forte implication dans la ligue.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Hall of Fame (Diamants)</h2>
+      <p>Affiche le(s) joueur(s) ayant atteint le niveau 💎 Diamant dans chaque catégorie de badge.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Catégorie</th>
+              <th>Joueur(s)</th>
+              <th>Diamant(s)</th>
+            </tr>
+          </thead>
+          <tbody id="hofBodyInfo">
+            <!-- rempli par info.js -->
+          </tbody>
+        </table>
+      </div>
+      <div id="infoError" class="error-info"></div>
+    </section>
+
+    <section class="card">
+      <h2>Statistiques de la saison en cours</h2>
+      <ul>
+        <li><strong>Matchs joués :</strong> <span id="statMatches">Chargement...</span></li>
+        <li><strong>Buts marqués (total) :</strong> <span id="statGoals">Chargement...</span></li>
+        <li><strong>Joueur le plus actif :</strong> <span id="statMostActive">Chargement...</span></li>
+        <li><strong>Meilleur attaquant (ratio réussite) :</strong> <span id="statBestAtt">Chargement...</span></li>
+        <li><strong>Meilleur défenseur (ratio défensif) :</strong> <span id="statBestDef">Chargement...</span></li>
+      </ul>
+    </section>
+
+    <section class="card" style="text-align:center;">
+      <a href="./" class="back-link">⬅️ Retour à la ligue</a>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Ligue de Kicker du Télégraphe – Page Infos & Règlement</p>
+  </footer>
+
+  <script src="info.js"></script>
+</body>
+</html>
